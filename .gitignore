@@ -1,0 +1,14 @@
+\.classpath
+
+\.settings/
+
+\.project
+
+\ target/
+
+*.class
+
+target/
+*.txt
+
+*.db
