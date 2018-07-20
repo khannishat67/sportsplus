@@ -1,48 +1,44 @@
-<div class="logo">
-			<a href="index.html"><img src="images/logo.png"></a>
-		</div>
-<div class="header-top"></div>
-<div class="well1" ng-init="fg=true;fc=true;enableEdit=false;viewAth=false;" style="padding-top: 1em;">
-	<h3>Athlete Controls</h3>
-	<div class="well">
-		<h4>Add Athlete</h4>
-		<table class="table" style="width: 500px;">
- 			<tr>
-				<td>
-					First Name
-				</td>
-				<td>
-    				<input type="text" class="form-control" placeholder="FIRST NAME" ng-model="newAthlete.firstName" />
-				</td>
-			</tr>
- 			<tr>
-	 			<td>
-		 			Last Name
-	 			</td>
-	 			<td>
-    				<input type="text" class="form-control" placeholder="LAST NAME" ng-model="newAthlete.lastName" />
-				</td>
-			</tr>
- 			<tr>
-	 			<td>
-	 				Date of Birth
-	 			</td>
-	 			<td class="form-inline">
-	 				<input type="number" class="form-control" ng-model="b.dd" style="width: 70px;" placeholder="DD" min="1" max="31">
-	 				<input type="number" class="form-control" ng-model="b.mm" style="width: 70px;" placeholder="MM" min="1" max="12">
-	 				<input type="number" class="form-control" ng-model="b.yy" style="width: 100px;" placeholder="YYYY">
-	 			</td>
-			</tr>
-			<tr>
-				<td>Gender</td>
-				<td>
-					<select class="form-control" ng-model="newAthlete.gender">
-						<option ng-repeat="s in ['Male', 'Female']">{{s}}</option>
-					</select>
-				</td>
-			</tr>
+<div class="container" ng-init="fg=true;fc=true;enableEdit=false;viewAth=false" style="margin-top: 50px;">
+        <div class="row">
+            <div class="col-sm-1"><img src="watchos4-workout-indoor-outdoor-run-icon.png" width="75px" height="75px"></div>
+            <div class="col-sm-11"><h1>Athlete Controls</h1></div>
+        </div>
+<div class="container well" style="margin-top: 20px">
+<h3>Add Athlete</h3>
+<form>
+<table class="table" style="width: 500px;">
+ <tr>
+		<td>First Name</td>
+		<td>
+    <input type="text" class="form-control" placeholder="FIRST NAME" ng-model="newAthlete.firstName" />
+		</td>
+</tr>
+ <tr>
+	 <td>
+		 Last Name
+	 </td>
+	 <td>
+    <input type="text" class="form-control" placeholder="LAST NAME" ng-model="newAthlete.lastName" />
+		</td>
+</tr>
+ <tr>
+	 <td>Date of Birth</td>
+	 <td class="form-inline">
+	 <input type="number" class="form-control" ng-model="b.dd" style="width: 70px;" placeholder="DD" min="1" max="31">
+	 <input type="number" class="form-control" ng-model="b.mm" style="width: 70px;" placeholder="MM" min="1" max="12">
+	 <input type="number" class="form-control" ng-model="b.yy" style="width: 100px;" placeholder="YYYY">
+	 </td>
+	</tr>
+	<tr>
+		<td>Gender</td>
+		<td>
+		<select class="form-control" ng-model="newAthlete.gender">
+			<option ng-repeat="s in ['Male', 'Female']">{{s}}</option>
+		</select>
+		</td>
+	</tr>
 		
-			<tr>
+	<tr>
 		<td>Phone Number</td>
 		<td>
 		<input type="number" class="form-control" placeholder="Phone Number" ng-model="newAthlete.contactNo"/>
@@ -154,16 +150,17 @@
 	</tr>
 	<tr>
 		<td>
-	  		<button type="submit" class="btn btn-success" ng-click="addAthlete(newAthlete, b);ath.id=null">Submit</button>
+	  		<button type="submit" class="btn btn-success" ng-click="addAthlete(newAthlete, b);ath.id=null"><span class="glyphicon glyphicon-plus"></span> Add Athlete</button>
 		</td>
 	</tr>
+</form>
 </table>
 </div>
-<div class="well">
-        <h4>View, Update and Delete</h4>
+<div class="container well">
+        <h3>View, Update and Delete</h3>
         <div class="form-inline">
         <input type="number" placeholder="ATHLETE ID" ng-model="ath.id" class="form-control" ng-disabled="viewAth">
-        <button class="btn btn-primary" ng-click="fetchAth(ath.id);viewAth=!viewAth;enableEdit=false">Show</button>
+        <button class="btn btn-primary" ng-click="fetchAth(ath.id);viewAth=!viewAth;enableEdit=false"><span class="glyphicon glyphicon-menu-right"></span> Show</button>
         </div>
         <p style="height: 10px;"></p>
         <form>
@@ -314,9 +311,9 @@
             </tr>
             <tr>
                 <td class="form-inline">
-                      <button class="btn btn-primary" ng-click="enableEdit=!enableEdit">Edit</button>
-                      <button  class="btn btn-success" ng-click="updtAth(ath, dd, mm, yy)" ng-show="enableEdit">Update</button>
-                      <button  class="btn btn-danger" ng-click="deleteAth(ath)">Delete</button>
+                      <button class="btn btn-primary" ng-click="enableEdit=!enableEdit"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                      <button  class="btn btn-success" ng-click="updtAth(ath, dd, mm, yy)" ng-show="enableEdit"><span class="glyphicon glyphicon-pencil"></span> Update</button>
+                      <button  class="btn btn-danger" ng-click="deleteAth(ath)"><span class="glyphicon glyphicon-remove"></span> Delete</button>
                 </td>
             </tr>
         </form>
