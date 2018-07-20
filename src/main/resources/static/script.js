@@ -105,7 +105,6 @@ app.controller("academyCtrl", function($scope, $http) {
 	// deleteAcademy -> delete
 	$scope.deleteAcademy = function(academy) {
 		console.log(academy);
-		return;
 		$http({
 			method : 'POST',
 			url : 'http://localhost:8080/academy/delete',
@@ -451,8 +450,8 @@ app.controller("athleteCtrl", function($scope, $http){
 			return;
 		}
 		var v = new Date(c.yy,c.mm-1,c.dd,0,0,0,0);
-
-		if(v < date){
+		var date = new Date(); 
+		if(v > date){
 			$scope.dateMessage = "Date of Birth should be less than current date";
 
 			//console.log("error");
