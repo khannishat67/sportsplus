@@ -63,12 +63,28 @@ app.controller("academyCtrl", function($scope, $http) {
 			$scope.data = "Request failed";
 		});
 	};
-	
+	$scope.fd = function(crd){
+		var v1 = new Date(crd);
+		return v1.toLocaleDateString();
+	}
 	// saveAcademy -> add
 	$scope.saveAcademy = function() {
-		$scope.academy.created = new Date($scope.academy.created).getTime();
+		if(Object.keys($scope.academy).length < 3 || $scope.academy == null){
+			alert("Fields cant be left empty");
+			return;
+		}
+		var v = new Date().getTime();
+		$scope.academy.created = new Date($scope.academy.create).getTime();
+		if(v < $scope.academy.created){
+			alert("Created Date cant Exceed the current Date");
+			return;
+		}
 		console.log($scope.academy.created);
 		$scope.academy.upStringd = new Date($scope.academy.updated).getTime();
+		if(v < $scope.academy.upStringd){
+			alert("Updated Date cant Exceed the current Date");
+			return;
+		}
 		console.log($scope.academy.upStringd);
 		$http({
 			method : 'POST',
@@ -83,15 +99,18 @@ app.controller("academyCtrl", function($scope, $http) {
 			$scope.status = status;
 			$scope.data = "Request failed";
 		});
+		
 	};
 	
 	// deleteAcademy -> delete
-	$scope.deleteAcademy = function() {
+	$scope.deleteAcademy = function(academy) {
+		console.log(academy);
+		return;
 		$http({
 			method : 'POST',
 			url : 'http://localhost:8080/academy/delete',
 			headers: { 'Content-Type': 'application/json' },
-			data:$scope.academy
+			data:academy
 		}).success(function(data, status) {
 			console.log(data);
 			$scope.fetchAcademy();
@@ -103,12 +122,30 @@ app.controller("academyCtrl", function($scope, $http) {
 	};
 	
 	// updateAcademy -> update
-	$scope.updateAcademy = function() {
+	$scope.updateAcademy = function(academy, cr, up) {
+		if(Object.keys(academy).length < 3 || academy == null){
+			alert("Fields cant be left empty");
+			return;
+		}
+		var v = new Date().getTime();
+		academy.created = new Date(cr).getTime();
+		if(v < academy.created){
+			alert("Created Date cant Exceed the current Date");
+			return;
+		}
+		
+		academy.upStringd = new Date(up).getTime();
+		if(v < academy.upStringd){
+			alert("Updated Date cant Exceed the current Date");
+			return;
+		}
+		academy.created = new Date(cr).getTime();
+		academy.upStringd = new Date(up).getTime();
 		$http({
 			method : 'POST',
 			url : 'http://localhost:8080/academy/update',
 			headers: { 'Content-Type': 'application/json' },
-			data:$scope.academy
+			data:academy
 		}).success(function(data, status) {
 			console.log(data);
 			$scope.fetchAcademy();
@@ -202,13 +239,14 @@ app.controller("groupCtrl", function($scope, $http) {
 	};
 	
 	// deleteGroup -> deleteGroup
-	$scope.deleteGroup = function() {
+	$scope.deleteGroup = function(grp) {
 		$http({
 			method : 'POST',
 			url : 'http://localhost:8080/group/deleteGroup',
-			data : $scope.group
+			data : grp
 		}).success(function(data, status) {
 			alert("Group deleted");
+			$scope.getAllGroups();
 		}).error(function(data, status) {
 			$scope.status = status;
 		});
@@ -219,7 +257,7 @@ app.controller("groupCtrl", function($scope, $http) {
 		$http({
 			method : 'POST',
 			url : 'http://localhost:8080/group/getAGroup',
-			data : $scope.group1
+			data : $scope.groupData
 		}).success(function(data, status) {
 			$scope.groupData = data;
 		}).error(function(data, status) {
@@ -228,11 +266,11 @@ app.controller("groupCtrl", function($scope, $http) {
 	};
 	
 	// updateGroup -> updateGroup
-	$scope.updateGroup = function() {
+	$scope.updateGroup = function(grp) {
 		$http({
 			method : 'POST',
 			url : 'http://localhost:8080/group/updateGroup',
-			data : $scope.group1
+			data : grp
 		}).success(function(data, status) {
 			alert("updated");
 		}).error(function(data, status) {
@@ -308,7 +346,7 @@ app.controller("groupCtrl", function($scope, $http) {
 //Coach Controller
 app.controller("coachCtrl", function($scope, $http){
 	$scope.addCoach = function(ch){
-		if(Object.keys(ch).length < 3){
+		if(ch == null || Object.keys(ch).length < 3){
 			alert("Fields cannot be left blank");
 			return;
 		};
