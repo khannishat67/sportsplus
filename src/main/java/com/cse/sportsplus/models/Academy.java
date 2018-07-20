@@ -1,29 +1,47 @@
 package com.cse.sportsplus.models;
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
+
 @Entity
 @Table(name="academy_table")
 public class Academy implements Serializable {
-	 @Id
+
+	 	@Id
 	    @GeneratedValue
 	    @Column(name="Academy_id")
 		private Long id;
 	
-	 @Column(name="Name",unique=true)
-
+	 	@Column(name="Name",unique=true)
 		private String name;
-		@Column(name="created")
-		private String created;
-		@Column(name="updated")
-		private String updated;
-		
+
+	 	@Column(name="created")
+		private Long created;
+
+	 	@Column(name="upStringd")
+		private Long upStringd;
+
+	 	@OneToMany(mappedBy = "academy")
+	 	private List<Group> groupList;
+
+
+
 		Academy(){}
 
-		public Long getId() {
+	
+
+	public Academy(Long id, String name, Long created, Long upStringd, List<Group> groupList) {
+			super();
+			this.id = id;
+			this.name = name;
+			this.created = created;
+			this.upStringd = upStringd;
+			this.groupList = groupList;
+		}
+
+
+
+	public Long getId() {
 			return id;
 		}
 
@@ -31,7 +49,7 @@ public class Academy implements Serializable {
 			this.id = id;
 		}
 
-		
+
 
 		public String getName() {
 			return name;
@@ -41,25 +59,28 @@ public class Academy implements Serializable {
 			this.name = name;
 		}
 
-		public String getCreated() {
+		public Long getCreated() {
 			return created;
 		}
 
-		public void setCreated(String created) {
+		public void setCreated(Long created) {
 			this.created = created;
 		}
 
-		public String getUpdated() {
-			return updated;
+		public Long getUpStringd() {
+			return upStringd;
 		}
 
-		public void setUpdated(String updated) {
-			this.updated = updated;
+		public void setUpStringd(Long upStringd) {
+			this.upStringd = upStringd;
 		}
 
-		
+//		public List<Group> getGroupList() {
+//			return groupList;
+//		}
 
-		
-		
-}	
+		public void setGroupList(List<Group> groupList) {
+			this.groupList = groupList;
+		}
+}
 		
